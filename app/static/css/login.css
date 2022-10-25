@@ -1,0 +1,12 @@
+#view {
+  height: 100vh;
+  display: flex;
+  padding: 15%;
+}
+
+#login-block {
+  margin: auto;
+  padding: 30px;
+  border: 1px solid gray;
+  border-radius: 20px;
+}

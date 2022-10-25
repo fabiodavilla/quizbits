@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+<div id="users" class="container">
+  <h1>tela quiz</h1>
+  <a href="/quiz/create"><button>criar quiz</button></a>
+</div>
+{% endblock %}
