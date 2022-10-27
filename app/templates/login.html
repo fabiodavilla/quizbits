@@ -2,18 +2,49 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/notification.css') }}">
+<title>Login Page</title>
 {% endblock %}
 
 {% block body %}
 <div id="view" class="container">
-  <div id="login-block" class="container is-half">
-    <h2>Login</h2>
-    <form>
-      <label class="label" for="email">Email</label>
-      <input class="input" name="email" id="email">
-      <label class="label" for="password">Password</label>
-      <input class="input" name="password" id="password">
+  <div id="login-block" class="container content">
+    <h1>Login</h1>
+    <form method="post" enctype="multipart/form-data">
+      <div class="field">
+        <label class="label" for="email">Email</label>
+        <p class="control has-icons-left">
+          <input class="input" type="email" name="email" id="email">
+          <span class="icon is-small is-left">
+            <i class="fa-solid fa-user"></i>
+          </span>
+        </p>
+      </div>
+
+      <div class="field">
+        <label class="label" for="password">Password</label>
+        <p class="control has-icons-left">
+          <input class="input" type="password" name="password" id="password">
+          <span class="icon is-small is-left">
+            <i class="fa-solid fa-lock"></i>
+          </span>
+        </p>
+      </div>
+
+      <input id="submit" class="button" type="submit">
+      <a href="/user/create">
+        <button id="create-account" type="button" class="button">Create account</button>
+      </a>
     </form>
   </div>
+
+  {% if error %}
+  <div id="notification" class="notification is-danger">
+    <button class="delete"></button>
+    erro
+  </div>
+  {% endif %}
 </div>
+
+<script src="{{ url_for('static', filename='js/notification.js') }}"></script>
 {% endblock %}

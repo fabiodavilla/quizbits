@@ -2,11 +2,24 @@
   height: 100vh;
   display: flex;
   padding: 15%;
+  background-color: var(--colorLight);
 }
 
 #login-block {
   margin: auto;
   padding: 30px;
-  border: 1px solid gray;
+  border: 1px solid var(--colorPurpleLighter);
   border-radius: 20px;
+  background-color: white;
+}
+
+#submit,
+#create-account {
+  margin-top: 10px;
+}
+
+#submit {
+  background-color: var(--colorPurpleLighter);
+  color: white;
+  font-weight: bold;
 }

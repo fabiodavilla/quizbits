@@ -4,4 +4,4 @@ data_controller = Blueprint('data', __name__, url_prefix='/data')
 
 @data_controller.route('/', methods=['GET', 'POST'])
 def data():
-    return render_template("data.html", page_title="QuizBits - Data page")
+    return render_template("data.html")

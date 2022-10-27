@@ -1,11 +1,18 @@
 * {
   margin: 0;
   padding: 0;
+  --colorDark: #5a5670;
+  --colorPurpleDarker: #3e3570;
+  --colorPurple: #6859bd;
+  --colorPurpleLighter: #8472f0;
+  --colorLight: #c3bbf2;
 }
-/*
-#5A5670
-#3E3570
-#6859BD
-#8472F0
-#C3BBF2
-*/
+
+#navbar {
+  background-color: var(--colorPurpleDarker);
+}
+
+#navbar #navbar-menu a {
+  color: var(--colorLight);
+  font-weight: bold;
+}

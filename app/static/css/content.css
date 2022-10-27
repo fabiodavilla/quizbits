@@ -1,5 +1,5 @@
 #content {
   height: 100vh;
   display: flex;
-  color: red;
+  border: 1px solid black;
 }
