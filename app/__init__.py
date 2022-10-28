@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -34,3 +34,8 @@ app.register_blueprint(error_controller)
 
 with app.app_context():
     db.create_all()
+
+def render_login_button():
+    return True if session.get('email') else False
+
+app.jinja_env.globals.update(render_login_button=render_login_button)

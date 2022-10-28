@@ -10,15 +10,17 @@ def login():
         return render_template("login.html")
     else:
         data = request.form
-        user = User.query.filter_by(email=data['email']).first()
 
+        if (not data['email'] and not data['password']):
+            return render_template("login.html", error=f"Insert the required informations!")
+
+        user = User.query.filter_by(email=data['email']).first()
 
         if (not user):
             return render_template("login.html", error=f"Email {data['email']} not found!")
 
         if (user.password != data['password']):
             return render_template("login.html", error=f"Password doesn't Match")
-
 
         if (user.password == data['password']):
             session['email'] = request.form['email']
