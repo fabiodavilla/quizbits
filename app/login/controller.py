@@ -6,7 +6,6 @@ login_controller = Blueprint('login', __name__, url_prefix='/auth')
 @login_controller.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        print(session)
         return render_template("login.html")
     else:
         data = request.form

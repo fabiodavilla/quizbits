@@ -3,3 +3,24 @@
   display: flex;
   border: 1px solid black;
 }
+
+.all-width {
+  width: 100vw;
+}
+
+.header-with-button {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  border-bottom: 2px solid var(--colorLight);
+}
+
+.header-with-button button {
+  background-color: var(--colorPurpleLighter);
+  color: white;
+  font-weight: bold;
+}
+
+.list-body {
+  padding: 1em;
+}

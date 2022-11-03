@@ -13,6 +13,7 @@ app.secret_key = 'McQfTjWnZr4u7x!A%C*F-JaNdRgUkXp2'
 db = SQLAlchemy(app)
 # create tables
 from app.models.user import User
+from app.models.quiz import Quiz
 
 # controllers
 from app.index.controller import index_controller

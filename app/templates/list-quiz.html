@@ -1,6 +1,91 @@
 {% extends 'content.html' %}
 
+{% block head_content %}
+<title>Quiz list</title>
+{% endblock %}
+
 {% block content %}
-<h1>tela quiz</h1>
-<a href="/quiz/create"><button>criar quiz</button></a>
+<div class="all-width content">
+  <div class="header-with-button">
+    <h1>Quiz list</h1>
+    <a href="/quiz/create"><button class="button">Create quiz</button></a>
+  </div>
+  <div class="list-body">
+    <table class="table is-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Created at</th>
+          <th>Updated at</th>
+          <th>User</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for quiz in quizzes %}
+        <tr>
+          <td>{{ quiz.id }}</td>
+          <td>{{ quiz.name }}</td>
+          <td>{{ quiz.created_at }}</td>
+          <td>
+            {% if quiz.updated_at %}
+            {{ quiz.updated_at }}
+            {% else %}
+            -
+            {% endif %}
+          </td>
+          <td>{{ quiz.user_id }}</td>
+          <td>
+            <button class="button is-small is-danger" onclick="changeVal('{{ quiz.id }}');">Remove</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div id="modal" class="modal">
+      <div class="modal-background" onclick="closeModal();"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Delete quiz</p>
+          <button class="delete" aria-label="close" onclick="closeModal();"></button>
+        </header>
+        <section class="modal-card-body">
+          Are you sure?
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-danger" onclick="deleteUser();">Delete</button>
+          <button class="button" onclick="closeModal();">Cancel</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('modal');
+  let x = 0
+
+  function changeVal(val) {
+    x = Number(val)
+    console.log(x)
+
+    modal.classList.add('is-active')
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-active')
+  }
+
+  async function deleteUser() {
+    const result = await fetch(`${window.location.href}${x}`, {
+      method: 'DELETE'
+    })
+
+    if (result.status === 200) {
+      location.reload()
+    }
+  }
+</script>
 {% endblock %}
