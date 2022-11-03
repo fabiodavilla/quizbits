@@ -1,0 +1,9 @@
+#question_field {
+    border: 1px solid var(--colorPurple);
+    padding: 1em;
+    border-radius: 1em;
+}
+
+#question_field button {
+    margin-top: 1em;
+}

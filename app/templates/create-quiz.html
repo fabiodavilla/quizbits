@@ -2,6 +2,7 @@
 
 {% block head_content %}
 <title>Create Quiz</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -20,10 +21,11 @@
         </p>
       </div>
       
-      <div>
-          <button id="add_field" class="button">+</button>
-      	<div id="fields">
-        </div>  
+      <div id="question_field">
+        <h3>Question Area</h3>
+		<div id="fields">
+        </div>
+        <button id="add_field" class="button">+</button>
       </div>
   </div>
 </div>
@@ -31,17 +33,22 @@
 <script>
     const button = document.getElementById('add_field');
     const fields = document.getElementById('fields');
+    
+    let num = 1;
+    
     button.onclick = () => {
+        let str = `question_${num}`;
+        
         fields.innerHTML += `
-        	<div class="field">
-        	<label class="label" for="name">Name</label>
-        	<p class="control has-icons-left">
-          	<input class="input" type="text" name="name" id="name">
-          	<span class="icon is-small is-left">
-	            <i class="fa-solid fa-user"></i>
-          </span>
+          <div class="field">
+            <label class="label" for="${str}">${str}</label>
+            <p class="control has-icons-left">
+          	  <input class="input" type="text" name="${str}" id="${str}">
     	    </p>
-      	</div>`
+      	  </div>
+        `;
+        
+    	num++;
     }
 </script>
 {% endblock %}
