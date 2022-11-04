@@ -3,6 +3,7 @@ from ..models.user import User
 
 login_controller = Blueprint('login', __name__, url_prefix='/auth')
 
+
 @login_controller.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -26,6 +27,7 @@ def login():
             return redirect(url_for('index.index'))
 
         return 'User not found'
+
 
 @login_controller.route('/logout', methods=['GET'])
 def logout():

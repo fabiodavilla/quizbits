@@ -6,12 +6,14 @@ from datetime import datetime
 
 user_controller = Blueprint('user', __name__, url_prefix='/user')
 
+
 @user_controller.route('/', methods=['GET'])
 def users():
     if request.method == 'GET':
         users = User.query.all()
 
         return render_template("list-users.html", users=users)
+
 
 @user_controller.route('/create', methods=['GET', 'POST'])
 def create_user():
@@ -25,15 +27,17 @@ def create_user():
 
         return redirect(url_for('user.users'))
 
+
 @user_controller.route('/<id>', methods=['GET', 'PUT', 'DELETE'])
 def modify(id):
-    user = User.query.filter_by(id = int(id)).first()
+    user = User.query.filter_by(id=int(id)).first()
 
     if request.method == 'GET':
         return render_template("update-user.html", body=user)
 
     elif request.method == 'PUT':
-        data = json.loads(request.get_data(parse_form_data=True).decode('utf-8'))
+        data = json.loads(request.get_data(
+            parse_form_data=True).decode('utf-8'))
 
         if data['password'] == data['confirm-password']:
             user.name = data['name']
