@@ -37,7 +37,13 @@
           </td>
           <td>{{ quiz.user_id }}</td>
           <td>
-            <button class="button is-small is-danger" onclick="changeVal('{{ quiz.id }}');">Remove</button>
+            {% if quiz.active %}
+            <button class="button is-small is-danger" onclick="changeVal('{{ quiz.id }}');">Inactivate</button>
+            {% else %}
+            <a href="/quiz/results">
+              <button class="button is-small">View</button>
+            </a>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}
@@ -48,14 +54,14 @@
       <div class="modal-background" onclick="closeModal();"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Delete quiz</p>
+          <p class="modal-card-title">Inactivate quiz</p>
           <button class="delete" aria-label="close" onclick="closeModal();"></button>
         </header>
         <section class="modal-card-body">
           Are you sure?
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-danger" onclick="deleteUser();">Delete</button>
+          <button class="button is-danger" onclick="inactivateQuiz();">Inactivate</button>
           <button class="button" onclick="closeModal();">Cancel</button>
         </footer>
       </div>
@@ -65,11 +71,10 @@
 
 <script>
   const modal = document.getElementById('modal');
-  let x = 0
+  let quizId = 0
 
   function changeVal(val) {
-    x = Number(val)
-    console.log(x)
+    quizId = Number(val)
 
     modal.classList.add('is-active')
   }
@@ -78,9 +83,9 @@
     modal.classList.remove('is-active')
   }
 
-  async function deleteUser() {
-    const result = await fetch(`${window.location.href}${x}`, {
-      method: 'DELETE'
+  async function inactivateQuiz() {
+    const result = await fetch(`${window.location.href}${quizId}`, {
+      method: 'PUT'
     })
 
     if (result.status === 200) {

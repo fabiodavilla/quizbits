@@ -11,44 +11,68 @@
     <h1>Create Quiz</h1>
   </div>
   <div class="list-body">
-      <div class="field">
-        <label class="label" for="title">Title</label>
-        <p class="control has-icons-left">
-          <input class="input" type="text" name="title" id="title">
-          <span class="icon is-small is-left">
-            <i class="fa-solid fa-user"></i>
-          </span>
-        </p>
+    <div class="field">
+      <label class="label" for="title">Title</label>
+      <p class="control has-icons-left">
+        <input class="input" type="text" name="title" id="title">
+        <span class="icon is-small is-left">
+          <i class="fa-solid fa-user"></i>
+        </span>
+      </p>
+    </div>
+
+    <div id="question_field">
+      <h3>Question Area</h3>
+      <div id="fields">
       </div>
-      
-      <div id="question_field">
-        <h3>Question Area</h3>
-		<div id="fields">
-        </div>
-        <button id="add_field" class="button">+</button>
-      </div>
+      <button id="add_field" class="button">+</button>
+      <button id="save" class="button">Save</button>
+    </div>
   </div>
 </div>
 
 <script>
-    const button = document.getElementById('add_field');
-    const fields = document.getElementById('fields');
-    
-    let num = 1;
-    
-    button.onclick = () => {
-        let str = `question_${num}`;
-        
-        fields.innerHTML += `
+  const button = document.getElementById('add_field');
+  const fields = document.getElementById('fields');
+  const save = document.getElementById('save');
+
+  save.onclick = async () => {
+    const inputs = document.querySelectorAll("input");
+    const form = {};
+
+    inputs.forEach(input => {
+      if (input.name !== 'title') {
+        form.questions[input.name] = input.value
+      }
+      else {
+        form[input.name] = input.value
+        form['questions'] = {}
+      }
+    });
+
+    const result = await fetch(`${window.location.href}`, {
+      method: 'POST',
+      body: JSON.stringify(form)
+    })
+
+    if (result.status === 200) {
+      window.location.href = '/quiz'
+    }
+  }
+
+  let num = 1;
+
+  button.onclick = () => {
+    let str = `question_${num++}`;
+
+    fields.insertAdjacentHTML('beforeend', `
           <div class="field">
             <label class="label" for="${str}">${str}</label>
-            <p class="control has-icons-left">
+            <p class="control">
           	  <input class="input" type="text" name="${str}" id="${str}">
-    	    </p>
+    	      </p>
       	  </div>
-        `;
-        
-    	num++;
-    }
+        `);
+  }
 </script>
 {% endblock %}

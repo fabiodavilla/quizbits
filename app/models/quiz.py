@@ -8,6 +8,7 @@ class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
+    active = db.Column(db.Boolean, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
@@ -15,6 +16,7 @@ class Quiz(db.Model):
     def __init__(self, name, content, user_id):
         self.name = name
         self.content = content
+        self.active = True
         self.created_at = datetime.now()
         self.user_id = user_id
 
