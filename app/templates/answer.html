@@ -1,5 +1,41 @@
 {% extends 'content.html' %}
 
+{% block head_content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/answer.css') }}">
+{% if not quiz %}
+<title>Error</title>
+{% else %}
+<title>{{ quiz.name }}</title>
+{% endif %}
+{% endblock %}
+
 {% block content %}
-<h1>tela answer</h1>
+
+{% if not quiz %}
+<div id="no-content">
+  <a href="/quiz/answer-list">
+    <button class="button">Go Back</button>
+  </a>
+</div>
+{% else %}
+<div class="all-width content">
+  <div class="header-with-button">
+    <h1>{{ quiz.name }}</h1>
+  </div>
+  <div class="list-body">
+    <form method="post" enctype="multipart/form-data">
+      {% for i in content %}
+      <div class="field">
+        <label class="label" for="{{ i.0 }}">{{ i.1 }}</label>
+        <p class="control">
+          <input class="input" type="text" name="{{ i.0 }}" id="{{ i.0 }}">
+        </p>
+      </div>
+      {% endfor %}
+      <input class="button" type="submit" value="Save" />
+    </form>
+  </div>
+</div>
+{% endif %}
+
 {% endblock %}

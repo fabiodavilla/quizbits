@@ -1,6 +1,7 @@
 import json
 from flask import Blueprint, make_response, redirect, render_template, request, session, url_for
 from app import db
+from app.models.answer import Answer
 from app.models.quiz import Quiz
 from app.models.user import User
 
@@ -42,16 +43,63 @@ def update_quiz(id):
     return redirect(url_for("quiz.list_quiz"))
 
 
-@quiz_controller.route('/answer-list', methods=['GET'])
+@quiz_controller.route('/answer-list', methods=['GET', 'POST'])
 def answer_list_quiz():
-    return render_template("answer-list-quiz.html")
+    quizzes = Quiz.query.filter_by(active=True).all()
+    return render_template("answer-list-quiz.html", quizzes=quizzes)
 
 
-@quiz_controller.route('/answer/<id>', methods=['GET'])
+@quiz_controller.route('/answer/<id>', methods=['GET', 'POST'])
 def answer_quiz(id):
-    return render_template("answer.html")
+    if request.method == 'GET':
+        quiz = Quiz.query.filter_by(id=int(id)).first()
+        contentJson = json.loads(quiz.content)
+        content = [(i, contentJson[i]) for i in contentJson]
+
+        return render_template("answer.html", quiz=quiz, content=content)
+    else:
+        user = User.query.filter_by(email=session['email']).first()
+        data = json.dumps(request.form)
+
+        print(id)
+        print(type(id))
+        print(int(id))
+        print(type(int(id)))
+
+        if data and user:
+            answer = Answer(data, user.id, int(id))
+            db.session.add(answer)
+            db.session.commit()
+
+        return redirect(url_for("quiz.answer_list_quiz"))
 
 
 @quiz_controller.route('/results', methods=['GET'])
 def results_quiz():
-    return render_template("results.html")
+    answered = Quiz.query.filter_by(active=False).all()
+
+    return render_template("result-list.html", list=answered)
+
+@quiz_controller.route('/results/<id>', methods=['GET'])
+def results_list(id):
+    answers = Answer.query.filter_by(quiz_id=id).all()
+    quiz = Quiz.query.filter_by(id=id).first()
+
+    answersList = []
+    for answer in answers:
+        user = User.query.filter_by(id=answer.user_id).first()
+
+        newObj = {}
+        newObj['id'] = answer.id
+        newObj['created_at'] = answer.created_at
+        newObj['user'] = user.name
+        newObj['content'] = []
+
+        quizContent = json.loads(quiz.content)
+        answerContent = json.loads(answer.content)
+        for question in quizContent:
+            newObj['content'].append((quizContent[question], answerContent[question]))
+
+        answersList.append(newObj)
+    
+    return render_template("result.html", quiz=quiz.name, list=answersList)

@@ -12,6 +12,7 @@ class Quiz(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    answer = db.relationship("Answer")
 
     def __init__(self, name, content, user_id):
         self.name = name

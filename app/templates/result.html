@@ -1,32 +1,35 @@
 {% extends 'content.html' %}
 
 {% block head_content %}
-<title>Opened Quiz</title>
+<title>{{ quiz }}</title>
 {% endblock %}
 
 {% block content %}
 <div class="all-width content">
   <div class="header-with-button">
-    <h1>Opened List</h1>
+    <h1>{{ quiz }}</h1>
   </div>
   <div class="list-body">
     <table class="table is-striped">
       <thead>
         <tr>
           <th>Id</th>
-          <th>Name</th>
-          <th>Action</th>
+          <th>User</th>
+          <th>Answer</th>
         </tr>
       </thead>
       <tbody>
-        {% for quiz in quizzes %}
+        {% for answer in list %}
         <tr>
-          <td>{{ quiz.id }}</td>
-          <td>{{ quiz.name }}</td>
+          <td>{{ answer.id }}</td>
+          <td>{{ answer.user }}</td>
+          <!-- <td>{{ answer.content }}</td> -->
           <td>
-            <a href="/quiz/answer/{{ quiz.id }}">
-              <button class="button is-small">Answer</button>
-            </a>
+            {% for item in answer.content %}
+            <b>{{ item.0 }}:</b>
+            <i>{{ item.1 }}</i>
+            <br />
+            {% endfor %}
           </td>
         </tr>
         {% endfor %}

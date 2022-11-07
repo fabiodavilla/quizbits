@@ -14,6 +14,7 @@ db = SQLAlchemy(app)
 # create tables
 from app.models.user import User
 from app.models.quiz import Quiz
+from app.models.answer import Answer
 
 # controllers
 from app.index.controller import index_controller

@@ -13,6 +13,7 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=True)
     quiz = db.relationship("Quiz")
+    answer = db.relationship("Answer")
 
     def __init__(self, name, email, password, status):
         self.name = name
