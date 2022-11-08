@@ -40,7 +40,9 @@
         </a>
         {% else %}
         <!-- gambiarra forte -->
+        {% if not check_route(url_for(request.endpoint)) %}
         <meta http-equiv='refresh' content='0; URL={{ url_for("login.logout") }}'>
+        {% endif %}
         {% endif %}
 
         <div class="navbar-dropdown">

@@ -3,6 +3,7 @@
 {% block head_content %}
 <title>Import/Export Data</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/data.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
 {% endblock %}
 
 {% block content %}
@@ -18,32 +19,57 @@
   </div>
 </div>
 
-<div class="notification">
+<!-- <div class="notification">
   <button class="delete"></button>
   Lorem ipsum dolor sit amet, consectetur
-</div>
+</div> -->
 
+<script src="https://cdn.jsdelivr.net/npm/bulma-toast@2.4.1/dist/bulma-toast.min.js"></script>
 <script>
   exportButton = document.getElementById('export')
   importButton = document.getElementById('import')
 
-    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-      const $notification = $delete.parentNode;
-
-      $delete.addEventListener('click', () => {
-        $notification.parentNode.removeChild($notification);
-      });
-    });
-
   exportButton.onclick = async () => {
-    const result = await fetch(`${window.location.href}`, {
-      method: 'POST',
-      body: JSON.stringify(form)
-    })
+    const result = await fetch(`${window.location.href}export`)
 
     if (result.status === 200) {
-      window.location.href = '/quiz'
+      bulmaToast.toast({
+        duration: 5000,
+        message: "Data exported successfully!",
+        type: 'is-success',
+        position: "top-right",
+        dismissible: true,
+        animate: { in: 'fadeIn', out: 'fadeOut' },
+      })
     }
+  }
+
+  importButton.onclick = () => {
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.onchange = async () => {
+      let files = Array.from(input.files);
+
+      const data = new FormData()
+      data.append('file', files[0])
+
+      const result = await fetch(`${window.location.href}import`, {
+        method: 'POST',
+        body: data
+      })
+
+      if (result.status === 200) {
+        bulmaToast.toast({
+          duration: 5000,
+          message: "Data imported successfully!",
+          type: 'is-success',
+          position: "top-right",
+          dismissible: true,
+          animate: { in: 'fadeIn', out: 'fadeOut' },
+        })
+      }
+    };
+    input.click();
   }
 </script>
 {% endblock %}

@@ -13,9 +13,3 @@
   border-color: var(--colorPurpleLighter);
   font-weight: bold;
 }
-
-.notification {
-  position: absolute;
-  top: 10px;
-  right: -75px;
-}

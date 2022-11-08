@@ -70,11 +70,10 @@
 
 <script>
   const modal = document.getElementById('modal');
-  let x = 0
+  let val = 0
 
   function changeVal(val) {
-    x = Number(val)
-    console.log(x)
+    val = Number(val)
 
     modal.classList.add('is-active')
   }
@@ -84,7 +83,7 @@
   }
 
   async function deleteUser() {
-    const result = await fetch(`${window.location.href}${x}`, {
+    const result = await fetch(`${window.location.href}${val}`, {
       method: 'DELETE'
     })
 

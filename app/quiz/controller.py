@@ -26,7 +26,7 @@ def create_quiz():
             parse_form_data=True).decode('utf-8'))
 
         if data['title'] != "" and len(data['questions']) > 0:
-            quiz = Quiz(data['title'], json.dumps(data['questions']), user.id)
+            quiz = Quiz(data['title'], json.dumps(data['questions']), user.id, True)
             db.session.add(quiz)
             db.session.commit()
 
@@ -60,11 +60,6 @@ def answer_quiz(id):
     else:
         user = User.query.filter_by(email=session['email']).first()
         data = json.dumps(request.form)
-
-        print(id)
-        print(type(id))
-        print(int(id))
-        print(type(int(id)))
 
         if data and user:
             answer = Answer(data, user.id, int(id))

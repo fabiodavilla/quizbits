@@ -15,10 +15,10 @@ class Quiz(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     answer = db.relationship("Answer")
 
-    def __init__(self, name, content, user_id):
+    def __init__(self, name, content, user_id, active):
         self.name = name
         self.content = content
-        self.active = True
+        self.active = active
         self.created_at = datetime.now()
         self.user_id = user_id
 

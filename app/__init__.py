@@ -39,4 +39,18 @@ with app.app_context():
 def render_login_button():
     return True if session.get('email') else False
 
+def check_route(route):
+    response = False
+    routes = ['/data', '/user/create']
+
+    if route[-1] == '/':
+        route = route[:-1]
+
+    for i in routes:
+        if i == route:
+            response = True
+
+    return response
+
 app.jinja_env.globals.update(render_login_button=render_login_button)
+app.jinja_env.globals.update(check_route=check_route)

@@ -14,7 +14,8 @@
 }
 
 #submit,
-#create-account {
+#create-account,
+#data-btn {
   margin-top: 10px;
 }
 
@@ -22,4 +23,9 @@
   background-color: var(--colorPurpleLighter);
   color: white;
   font-weight: bold;
+}
+
+#footer-buttons {
+  display: flex;
+  justify-content: space-between;
 }
