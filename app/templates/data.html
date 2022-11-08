@@ -1,5 +1,49 @@
 {% extends 'content.html' %}
 
+{% block head_content %}
+<title>Import/Export Data</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/data.css') }}">
+{% endblock %}
+
 {% block content %}
-<h1>dados</h1>
+<div class="all-width content">
+  <div class="header-with-button">
+    <h1>Import/Export Data</h1>
+  </div>
+  <div class="list-body">
+    <div id="list-buttons">
+      <button id="export" class="button">Export</button>
+      <button id="import" class="button">Import</button>
+    </div>
+  </div>
+</div>
+
+<div class="notification">
+  <button class="delete"></button>
+  Lorem ipsum dolor sit amet, consectetur
+</div>
+
+<script>
+  exportButton = document.getElementById('export')
+  importButton = document.getElementById('import')
+
+    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+      const $notification = $delete.parentNode;
+
+      $delete.addEventListener('click', () => {
+        $notification.parentNode.removeChild($notification);
+      });
+    });
+
+  exportButton.onclick = async () => {
+    const result = await fetch(`${window.location.href}`, {
+      method: 'POST',
+      body: JSON.stringify(form)
+    })
+
+    if (result.status === 200) {
+      window.location.href = '/quiz'
+    }
+  }
+</script>
 {% endblock %}

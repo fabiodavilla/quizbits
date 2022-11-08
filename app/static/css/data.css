@@ -1,0 +1,21 @@
+#list-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+#list-buttons button:first-of-type {
+  background-color: var(--colorPurpleLighter);
+  color: white;
+  font-weight: bold;
+}
+
+#list-buttons button:last-of-type {
+  border-color: var(--colorPurpleLighter);
+  font-weight: bold;
+}
+
+.notification {
+  position: absolute;
+  top: 10px;
+  right: -75px;
+}

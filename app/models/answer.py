@@ -1,8 +1,9 @@
 from app import db
 from datetime import datetime
+from sqlalchemy_serializer import SerializerMixin
 
 
-class Answer(db.Model):
+class Answer(db.Model, SerializerMixin):
     __tablename__ = 'answer'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -18,4 +19,4 @@ class Answer(db.Model):
         self.created_at = datetime.now()
 
     def __repr__(self):
-            return '<Answer %r>' % (self)
+        return '<Answer %r>' % (self)

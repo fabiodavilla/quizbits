@@ -1,8 +1,9 @@
 from app import db
 from datetime import datetime
+from sqlalchemy_serializer import SerializerMixin
 
 
-class Quiz(db.Model):
+class Quiz(db.Model, SerializerMixin):
     __tablename__ = 'quiz'
 
     id = db.Column(db.Integer, primary_key=True)

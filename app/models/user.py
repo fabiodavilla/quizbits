@@ -1,8 +1,9 @@
 from app import db
 from datetime import datetime
+from sqlalchemy_serializer import SerializerMixin
 
 
-class User(db.Model):
+class User(db.Model, SerializerMixin):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
