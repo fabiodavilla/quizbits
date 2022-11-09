@@ -26,4 +26,4 @@
 
 > #### instalada as dependências: execute o projeto
 
-` python run.pt`
+` python run.py`
