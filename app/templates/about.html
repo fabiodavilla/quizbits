@@ -1,15 +1,16 @@
 {% extends 'content.html' %}
 
 {% block head_content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
 <title>About</title>
 {% endblock %}
 
 {% block content %}
-<div>
+<div id="about" class="content">
   <h1>About</h1>
   <p>Projeto feito em Python, Flask e Jinja 2</p>
   <h4>Integrantes</h4>
   <p>Fábio Manoel Gonçalves d'Avilla - RA: <b>2840482013046</b></p>
-  <p>Fábio Manoel Gonçalves d'Avilla - RA: <b>2840482013046</b></p>
+  <p>Emanuele Bittencourt Quiquinato - RA: <b>2840482013027</b></p>
 </div>
 {% endblock %}
