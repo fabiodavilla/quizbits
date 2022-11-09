@@ -1,0 +1,37 @@
+#index-root {
+  display: flex;
+  width: 100vw;
+  justify-content: space-evenly;
+}
+
+#index-root a {
+  padding: 2rem;
+  margin: 1rem;
+  border: 1px solid var(--colorPurpleLighter);
+  border-radius: 1rem;
+  transition: transform 0.2s;
+}
+
+#index-root a div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+#index-root a div h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--colorPurple);
+  margin-bottom: 0.5rem;
+}
+
+#index-root a div p {
+  font-size: 2rem;
+  color: var(--colorDark);
+}
+
+#index-root a:hover {
+  transform: scale(1.1);
+}

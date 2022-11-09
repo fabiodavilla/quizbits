@@ -13,6 +13,11 @@
   background-color: white;
 }
 
+#logo {
+  display: flex;
+  justify-content: center;
+}
+
 #submit,
 #create-account,
 #data-btn {

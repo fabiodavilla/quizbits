@@ -1,7 +1,6 @@
 #content {
-  height: 100vh;
+  max-height: 90vh;
   display: flex;
-  border: 1px solid black;
 }
 
 .all-width {

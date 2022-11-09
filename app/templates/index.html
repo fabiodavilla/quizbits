@@ -2,8 +2,40 @@
 
 {% block head_content %}
 <title>Index Page</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 {% endblock %}
 
 {% block content %}
-<h1>tela inicial</h1>
+<div id="index-root">
+  <a href="/user">
+    <div>
+      <h2>Created Users</h2>
+      <p>{{ data[0] }}</p>
+    </div>
+  </a>
+  <a href="/quiz">
+    <div>
+      <h2>Created Quizzes</h2>
+      <p>{{ data[1] }}</p>
+    </div>
+  </a>
+  <a href="/quiz/answer-list">
+    <div>
+      <h2>Open Quizzes</h2>
+      <p>{{ data[2] }}</p>
+    </div>
+  </a>
+  <a href="/quiz/results">
+    <div>
+      <h2>Closed Quizzes</h2>
+      <p>{{ data[3] }}</p>
+    </div>
+  </a>
+  <a href="#">
+    <div>
+      <h2>Answers</h2>
+      <p>{{ data[4] }}</p>
+    </div>
+  </a>
+</div>
 {% endblock %}

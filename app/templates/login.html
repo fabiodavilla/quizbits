@@ -9,6 +9,9 @@
 {% block body %}
 <div id="view" class="container">
   <div id="login-block" class="container content">
+    <div id="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" width="250" height="100" alt="Logo image">
+    </div>
     <h1>Login</h1>
     <form method="post" enctype="multipart/form-data">
       <div class="field">
