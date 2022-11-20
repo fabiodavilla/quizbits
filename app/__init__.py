@@ -1,5 +1,6 @@
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
+from .middleware import Middleware
 
 app = Flask(__name__)
 
@@ -33,24 +34,14 @@ app.register_blueprint(about_controller)
 app.register_blueprint(data_controller)
 app.register_blueprint(error_controller)
 
+# Middleware
+app.wsgi_app = Middleware(app.wsgi_app)
+
 with app.app_context():
     db.create_all()
 
 def render_login_button():
     return True if session.get('email') else False
 
-def check_route(route):
-    response = False
-    routes = ['/data', '/user/create']
-
-    if route[-1] == '/':
-        route = route[:-1]
-
-    for i in routes:
-        if i == route:
-            response = True
-
-    return response
 
 app.jinja_env.globals.update(render_login_button=render_login_button)
-app.jinja_env.globals.update(check_route=check_route)
