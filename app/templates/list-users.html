@@ -29,7 +29,13 @@
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.status }}</td>
+          <td>
+            {% if user.status %}
+            Admin
+            {% else %}
+            User
+            {% endif %}
+          </td>
           <td>{{ user.created_at }}</td>
           <td>
             {% if user.updated_at %}
@@ -39,10 +45,14 @@
             {% endif %}
           </td>
           <td>
+            {% if logged_user.status == true or user.id == logged_user.id %}
             <a href="/user/{{ user.id }}">
               <button class="button is-small">Update</button>
             </a>
+            {% endif %}
+            {% if logged_user.status == true %}
             <button class="button is-small is-danger" onclick="changeVal('{{ user.id }}');">Remove</button>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}

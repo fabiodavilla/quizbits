@@ -10,7 +10,8 @@ quiz_controller = Blueprint('quiz', __name__, url_prefix='/quiz')
 
 @quiz_controller.route('/', methods=['GET', 'PUT'])
 def list_quiz():
-    quizzes = Quiz.query.all()
+    user = User.query.filter_by(email=session['email']).first()
+    quizzes = Quiz.query.filter_by(user_id=user.id).all()
 
     return render_template("list-quiz.html", quizzes=quizzes)
 
@@ -45,7 +46,8 @@ def update_quiz(id):
 
 @quiz_controller.route('/answer-list', methods=['GET', 'POST'])
 def answer_list_quiz():
-    quizzes = Quiz.query.filter_by(active=True).all()
+    user = User.query.filter_by(email=session['email']).first()
+    quizzes = Quiz.query.filter(Quiz.user_id != user.id, Quiz.active == True).all()
     return render_template("answer-list-quiz.html", quizzes=quizzes)
 
 

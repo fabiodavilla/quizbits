@@ -46,8 +46,18 @@
         </p>
       </div>
 
-      <!-- <button id="submit" class="button" disabled onclick="updateUser();">Update</button> -->
-      <input id="submit" type="submit" class="button" disabled value="Update">
+      {% if logged_user.status == True %}
+      <div class="field">
+        <p class="control">
+          <label class="checkbox">
+            Administrator
+          </label>
+          <input type="checkbox" name="status" id="status" {% if body.status %} checked {% endif %}>
+        </p>
+      </div>
+      {% endif %}
+
+      <input id="submit" type="submit" class="button" value="Update">
     </form>
   </div>
 </div>
@@ -61,10 +71,8 @@
   confirmPassword.onkeyup = () => {
     if (password.value != confirmPassword.value) {
       tooltip.classList.add('has-tooltip-active')
-      submit.disabled = true;
     } else {
       tooltip.classList.remove('has-tooltip-active')
-      submit.disabled = false;
     }
   }
 
